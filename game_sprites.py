@@ -7,8 +7,10 @@ version:1.0
 
 import pygame
 
+# 游戏音乐
+GAME_MUSIC = "image/卡农.mp3"
 # 游戏窗口大小
-SCREEN_RECT = pygame.Rect(0, 0, 300, 300)
+SCREEN_RECT = pygame.Rect(0, 0, 700, 480)
 # 游戏名称
 GAME_NAME = "BoxGame"
 # 游戏刷新帧率
@@ -27,21 +29,37 @@ TERMINAL_IMAGE = "image/terminal.png"
 TERMINAL_PERSON_IMAGE = "image/t_man.png"
 # 游戏墙图片
 GAME_WALL = "image/wall.png"
+# 重玩图片
+RED_RESET_IMG = "image/red_reset.png"
+BLUE_RESET_IMG = "image/blue_reset.png"
 
-# # 0	# 表示空
-# WALL_FLAG = 1	        # 表示墙
-# PERSON_FLAG = 2	        # 表示人
-# BOX_FLAG = 3	        # 表示箱子
-# TERMINAL_FLAG = 4	    # 表示目的地（球）
-# FINISH_BOX_FLAG = 5	    # 表示已完成的箱子
+# 文本字体的大小
+TEXT_FONT_SIZE = 25
 
+# 关卡文本显示位置
+LEVEL_DISPLAY_POS = pygame.Rect(520, 50, 100, 50)
+# 计时文本显示位置
+TIME_DISPLAY_POS = pygame.Rect(520, 150, 100, 50)
+# 计步文本显示位置
+STEP_DISPLAY_POS = pygame.Rect(520, 250, 100, 50)
+# 重玩图片显示位置
+RESET_IMG_POS = pygame.Rect(520, 350, 64, 64)
 
 # 9	# 表示空
-WALL_FLAG = 1	        # 表示墙
-PERSON_FLAG = 3	        # 表示人
-BOX_FLAG = 2	        # 表示箱子
-TERMINAL_FLAG = 4	    # 表示目的地（球）
-FINISH_BOX_FLAG = 5	    # 表示已完成的箱子
+WALL_FLAG = 1  # 表示墙
+PERSON_FLAG = 3  # 表示人
+BOX_FLAG = 2  # 表示箱子
+TERMINAL_FLAG = 4  # 表示目的地（球）
+FINISH_BOX_FLAG = 5  # 表示已完成的箱子
+
+# 字体颜色
+RED = pygame.color.Color("RED")
+YELLOW = pygame.color.Color("YELLOW")
+BLUE = pygame.color.Color("#70f3ff")
+GREEN = pygame.color.Color("GREEN")
+WHITE = pygame.color.Color("WHITE")
+ORANGE = pygame.color.Color("ORANGE")
+PINK = pygame.color.Color("#ff4777")
 
 
 class GameSprite(pygame.sprite.Sprite):
@@ -55,10 +73,10 @@ class GameSprite(pygame.sprite.Sprite):
         # 标识游戏箱子到达目的地
         self.is_success = False
 
-    # def set_pos(self, x, y):
-    #     """设置位置"""
-    #     self.rect.x = x
-    #     self.rect.y = y
+    def set_pos(self, x, y):
+        """设置位置"""
+        self.rect.x = x
+        self.rect.y = y
 
     def set_sprite_pos(self, sprite_counts, sprite_flag):
         """
@@ -89,13 +107,6 @@ class GamePerson(GameSprite):
         # 设置游戏角色位置
         super().set_sprite_pos(0, PERSON_FLAG)
 
-    # def set_pos(self):
-    #     """设置游戏角色位置"""
-    #     for x in range(len(self.game_map)):
-    #         for y in range(len(self.game_map)):
-    #             if self.game_map[x][y] == 2:
-    #                 super().set_pos(x=self.rect.width * x, y=self.rect.height * y)
-
     def move_left(self):
         """向右移动"""
         self.rect.x = self.rect.x - self.rect.width
@@ -122,4 +133,26 @@ class Box(GameSprite):
 
     def __init__(self, image, game_map):
         super().__init__(image, game_map)
-        pass
+
+
+class TextSprite(pygame.sprite.Sprite):
+    """显示文本的精灵"""
+
+    def __init__(self, text):
+        super().__init__()
+        self.text = text
+        # 创建系统字体
+        self.sys_font = pygame.font.SysFont("simsunnsimsun", TEXT_FONT_SIZE)
+        # 根据字体创建显示对象(文字)    render(self,text,antialias,color,background = None)
+        self.image = self.sys_font.render(str(self.text), True, RED)
+        self.rect = self.image.get_rect()
+
+    def set_rect(self, s_rect: pygame.Rect):
+        """设置精灵的显示位置及大小"""
+        self.rect = s_rect
+
+    def update(self, text):
+        """更新精灵显示文本"""
+        self.text = text
+        # 根据字体创建显示对象(文字)    render(self,text,antialias,color,background = None)
+        self.image = self.sys_font.render(str(self.text), True, RED)

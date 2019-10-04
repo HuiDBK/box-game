@@ -7,10 +7,15 @@ version:1.0
 
 import os
 import sys
+import time
 import pyautogui as gui
 from game_sprites import *
 
 pygame.init()
+
+# 加载音乐
+pygame.mixer.init()
+pygame.mixer.music.load(GAME_MUSIC)
 
 # 获取电脑屏幕分辨率
 screen_width, screen_height = gui.size()
@@ -133,6 +138,8 @@ class BoxGame(object):
     """推箱子游戏主类"""
 
     def __init__(self, game_level=1):
+        # 标识是否第一次开启时间计时
+        self.is_first_time_count = True
         self.screen = pygame.display.set_mode(SCREEN_RECT.size)
         self.game_name = pygame.display.set_caption(GAME_NAME)
         self.game_clock = pygame.time.Clock()
@@ -142,6 +149,12 @@ class BoxGame(object):
         self.is_first = True
         # 记录游戏角色移动方向
         self.move_direction = None
+        # 记录游戏开始时间
+        self.start_time = None
+        # 记录游戏当前时间
+        self.current_time = None
+        # 记录游戏移动步数
+        self.step_count = 0
         # 初始化游戏地图
         self.__init_game_map()
         self.__create_sprite()
@@ -149,8 +162,13 @@ class BoxGame(object):
     def start_game(self):
         """游戏开始"""
         while True:
+            # 检查音乐流播放，有返回True，没有返回False
+            # 如果没有音乐流则选择播放
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play()
             self.game_clock.tick(FRAME_PRE_SEC)
             self.__event_handle()
+            self.current_time = time.process_time()
             self.__check_collision()
             self.__update_sprite()
             self.__update_game_level()
@@ -166,9 +184,40 @@ class BoxGame(object):
             elif event.type == pygame.KEYDOWN:
                 # print(pygame.key.name(event.key))
                 self.__move_event(event)
+                self.__time_step_count(event)
             elif event.type == pygame.KEYUP:
                 print("keyup")
-        pass
+            elif event.type == pygame.MOUSEMOTION:
+                # 鼠标移动事件
+                x, y = event.pos  # 获取屏幕坐标位置
+                # print("Mouse_Move:%s---%s" % (x, y))
+                if self.__is_on_reset_img(x, y):
+                    # 更换蓝颜色的重玩图片
+                    self.reset_sprite_group.sprites()[0].image = pygame.image.load(BLUE_RESET_IMG)
+                else:
+                    # 还原
+                    self.reset_sprite_group.sprites()[0].image = pygame.image.load(RED_RESET_IMG)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # 鼠标点击事件
+                x, y = event.pos  # 获取鼠标点击屏幕时的坐标位置
+                print("Mouse_Click:%s---%s" % (x, y))
+                if self.__is_on_reset_img(x, y):
+                    # 开启重玩
+                    self.__reset_game()
+
+    @staticmethod
+    def __is_on_reset_img(x, y):
+        """
+        判断鼠标位置是否在重玩图片上
+        :param x:
+        :param y:
+        :return:boolean
+        """
+        if (RESET_IMG_POS.x <= x <= RESET_IMG_POS.x + RESET_IMG_POS.width) and \
+                (RESET_IMG_POS.y <= y <= RESET_IMG_POS.y + RESET_IMG_POS.height):
+            return True
+        else:
+            return False
 
     def __create_sprite(self):
 
@@ -201,6 +250,26 @@ class BoxGame(object):
             box_terminal_sprite.set_sprite_pos(terminal_count, TERMINAL_FLAG)
             self.box_terminal_group.add(box_terminal_sprite)
 
+        # 创建显示游戏关卡精灵
+        level_sprite = TextSprite(text="关卡: " + str(self.game_level))
+        level_sprite.set_rect(LEVEL_DISPLAY_POS)
+        self.level_sprite_group = pygame.sprite.Group(level_sprite)
+
+        # 创建显示时间精灵
+        time_sprite = TextSprite(text="Time: 0")
+        time_sprite.set_rect(TIME_DISPLAY_POS)
+        self.time_sprite_group = pygame.sprite.Group(time_sprite)
+
+        # 创建显示移动步数精灵
+        step_sprite = TextSprite(text="Step: 0")
+        step_sprite.set_rect(STEP_DISPLAY_POS)
+        self.step_sprite_group = pygame.sprite.Group(step_sprite)
+
+        # 创建重玩游戏精灵
+        reset_sprite = GameSprite(RED_RESET_IMG, self.game_map)
+        reset_sprite.set_pos(RESET_IMG_POS.x, RESET_IMG_POS.y)
+        self.reset_sprite_group = pygame.sprite.Group(reset_sprite)
+
     def __update_sprite(self):
         """更新精灵"""
         self.game_bg_group.update()
@@ -217,6 +286,17 @@ class BoxGame(object):
 
         self.box_terminal_group.update()
         self.box_terminal_group.draw(self.screen)
+
+        if self.current_time is not None and self.start_time is not None:
+            self.time_sprite_group.update("Time: " + str(self.current_time - self.start_time))
+        self.time_sprite_group.draw(self.screen)
+
+        self.step_sprite_group.update("Step: " + str(self.step_count))
+        self.step_sprite_group.draw(self.screen)
+
+        self.level_sprite_group.draw(self.screen)
+
+        self.reset_sprite_group.draw(self.screen)
 
     def __check_collision(self):
         """检查精灵之间的碰撞"""
@@ -289,6 +369,8 @@ class BoxGame(object):
 
     def __back_person(self):
         """根据游戏角色移动方向的相反方向回退保持原位不动"""
+        # 步数回退
+        self.step_count -= 1
         if self.move_direction == "up":
             self.game_person_sprite.move_down()
         elif self.move_direction == "down":
@@ -300,22 +382,18 @@ class BoxGame(object):
 
     def __move_event(self, event):
         """游戏角色移动事件处理"""
-
-        # 游戏角色与墙发生碰撞,游戏角色(回退)保持原位不动
-        wall_sprite = pygame.sprite.spritecollide(self.game_person_sprite, self.wall_group, False)
-        print(wall_sprite)
         if event.key == pygame.K_w or pygame.key.name(event.key) == "up":
             # 记录移动方向
-            self.move_direction = pygame.key.name(event.key)
+            self.move_direction = "up"
             self.game_person_sprite.move_up()
         elif event.key == pygame.K_s or pygame.key.name(event.key) == "down":
-            self.move_direction = pygame.key.name(event.key)
+            self.move_direction = "down"
             self.game_person_sprite.move_down()
         elif event.key == pygame.K_a or pygame.key.name(event.key) == "left":
-            self.move_direction = pygame.key.name(event.key)
+            self.move_direction = "left"
             self.game_person_sprite.move_left()
         elif event.key == pygame.K_d or pygame.key.name(event.key) == "right":
-            self.move_direction = pygame.key.name(event.key)
+            self.move_direction = "right"
             self.game_person_sprite.move_right()
 
     def __init_game_map(self):
@@ -353,6 +431,27 @@ class BoxGame(object):
                 # 释放内存
                 del self
                 BoxGame(game_level=level).start_game()
+
+    def __time_step_count(self, event):
+        """游戏时间和移动步数计时"""
+        if event.key == pygame.K_w or pygame.key.name(event.key) == "up" or \
+                event.key == pygame.K_s or pygame.key.name(event.key) == "down" or \
+                event.key == pygame.K_a or pygame.key.name(event.key) == "left" or \
+                event.key == pygame.K_d or pygame.key.name(event.key) == "right":
+            if self.is_first_time_count:
+                self.start_time = time.process_time()
+                self.is_first_time_count = False
+            self.step_count += 1
+
+    def __reset_game(self):
+        """当前关卡重玩"""
+        game_level = self.game_level
+        if self.step_count == 0:
+            # 如果玩家没有走动则重置无效
+            print("玩家没有走动则重置无效")
+            return
+        del self    # 释放内存
+        BoxGame(game_level=game_level).start_game()
 
 
 if __name__ == '__main__':
