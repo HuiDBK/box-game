@@ -8,6 +8,7 @@ version:1.0
 import os
 import sys
 import time
+import random
 import pyautogui as gui
 from game_sprites import *
 
@@ -15,7 +16,9 @@ pygame.init()
 
 # 加载音乐
 pygame.mixer.init()
-pygame.mixer.music.load(GAME_MUSIC)
+
+pygame.mixer.music.load(random.choice(GAME_MUSICS))
+pygame.mixer.music.play(loops=0)
 
 # 获取电脑屏幕分辨率
 screen_width, screen_height = gui.size()
@@ -23,115 +26,6 @@ game_x = (screen_width - SCREEN_RECT.width) / 2
 game_y = (screen_height - SCREEN_RECT.height) / 2
 # 设置游戏窗口相对电脑屏幕居中
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (game_x, game_y)
-
-game_maps = {
-    1: [
-        [9, 9, 1, 1, 1, 9, 9, 9],
-        [9, 9, 1, 4, 1, 9, 9, 9],
-        [9, 9, 1, 0, 1, 1, 1, 1],
-        [1, 1, 1, 2, 0, 2, 4, 1],
-        [1, 4, 0, 2, 3, 1, 1, 1],
-        [1, 1, 1, 1, 2, 1, 9, 9],
-        [9, 9, 9, 1, 4, 1, 9, 9],
-        [9, 9, 9, 1, 1, 1, 9, 9]
-    ],
-    2: [
-        [9, 9, 1, 1, 1, 1, 9, 9],
-        [9, 9, 1, 4, 4, 1, 9, 9],
-        [9, 1, 1, 0, 4, 1, 1, 9],
-        [9, 1, 0, 0, 2, 4, 1, 9],
-        [1, 1, 0, 2, 3, 0, 1, 1],
-        [1, 0, 0, 1, 2, 2, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1]
-    ],
-    3: [
-        [9, 9, 1, 1, 1, 1, 9, 9],
-        [9, 1, 1, 0, 0, 1, 9, 9],
-        [9, 1, 3, 2, 0, 1, 9, 9],
-        [9, 1, 1, 2, 0, 1, 1, 9],
-        [9, 1, 1, 0, 2, 0, 1, 9],
-        [9, 1, 4, 2, 0, 0, 1, 9],
-        [9, 1, 4, 4, 6, 4, 1, 9],
-        [9, 1, 1, 1, 1, 1, 1, 9]
-    ],
-    4: [
-        [1, 1, 1, 1, 1, 9, 9, 9, 9],
-        [1, 0, 0, 0, 1, 1, 1, 1, 1],
-        [1, 2, 1, 0, 1, 0, 0, 0, 1],
-        [1, 0, 0, 3, 0, 0, 2, 0, 1],
-        [1, 4, 5, 1, 2, 1, 2, 1, 1],
-        [1, 4, 2, 0, 0, 0, 0, 1, 9],
-        [1, 4, 4, 0, 0, 1, 1, 1, 9],
-        [1, 1, 1, 1, 1, 1, 9, 9, 9]
-    ],
-    5: [
-        [9, 1, 1, 1, 1, 1, 1, 9],
-        [9, 1, 0, 0, 0, 0, 1, 9],
-        [9, 1, 0, 2, 2, 0, 1, 9],
-        [9, 1, 1, 6, 3, 0, 1, 9],
-        [9, 1, 0, 4, 0, 1, 9, 9],
-        [9, 1, 0, 6, 0, 1, 9, 9],
-        [9, 1, 0, 6, 0, 1, 9, 9],
-        [9, 1, 0, 4, 0, 1, 9, 9],
-        [9, 1, 1, 1, 1, 1, 9, 9]
-    ],
-
-    6: [
-        [9, 1, 1, 1, 1, 1, 1, 9, 9],
-        [9, 1, 0, 0, 0, 0, 1, 1, 9],
-        [1, 1, 4, 1, 1, 3, 0, 1, 9],
-        [1, 0, 6, 5, 0, 0, 0, 1, 9],
-        [1, 0, 0, 1, 2, 2, 0, 1, 9],
-        [1, 0, 0, 0, 0, 1, 1, 1, 9],
-        [1, 1, 1, 1, 1, 1, 9, 9, 9],
-        [9, 9, 9, 9, 9, 9, 9, 9, 9]
-
-    ],
-    7: [
-        [9, 1, 1, 1, 1, 1, 9, 9, 9],
-        [9, 1, 0, 3, 0, 1, 1, 1, 9],
-        [1, 1, 0, 1, 2, 0, 0, 1, 9],
-        [1, 0, 6, 4, 0, 4, 0, 1, 9],
-        [1, 0, 0, 2, 2, 0, 1, 1, 9],
-        [1, 1, 1, 0, 1, 4, 1, 9, 9],
-        [9, 9, 1, 0, 0, 0, 1, 9, 9],
-        [9, 9, 1, 1, 1, 1, 1, 9, 9]
-
-    ],
-    8: [
-        [1, 1, 1, 1, 1, 1, 1, 9],
-        [1, 4, 4, 2, 4, 4, 1, 9],
-        [1, 4, 4, 1, 4, 4, 1, 9],
-        [1, 0, 2, 2, 2, 0, 1, 9],
-        [1, 0, 0, 2, 0, 0, 1, 9],
-        [1, 0, 2, 2, 2, 0, 1, 9],
-        [1, 0, 0, 1, 3, 0, 1, 9],
-        [1, 1, 1, 1, 1, 1, 1, 9]
-
-    ],
-    9: [
-        [1, 1, 1, 1, 1, 1, 9, 9],
-        [1, 0, 0, 0, 0, 1, 9, 9],
-        [1, 0, 4, 6, 0, 1, 1, 1],
-        [1, 0, 4, 2, 4, 2, 0, 1],
-        [1, 1, 0, 2, 0, 0, 0, 1],
-        [9, 1, 1, 1, 1, 0, 3, 1],
-        [9, 9, 9, 9, 1, 1, 1, 1],
-        [9, 9, 9, 9, 9, 9, 9, 9]
-    ],
-    10: [
-        [9, 9, 1, 1, 1, 1, 1, 9, 9],
-        [9, 1, 1, 0, 3, 0, 1, 1, 9],
-        [9, 1, 0, 0, 6, 2, 0, 1, 9],
-        [9, 1, 2, 0, 4, 0, 2, 1, 9],
-        [9, 1, 4, 4, 1, 4, 4, 1, 9],
-        [1, 1, 2, 0, 6, 0, 0, 1, 1],
-        [1, 0, 2, 0, 1, 0, 2, 0, 1],
-        [1, 0, 0, 0, 1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1]
-    ]
-}
 
 
 class BoxGame(object):
@@ -141,7 +35,9 @@ class BoxGame(object):
         # 标识是否第一次开启时间计时
         self.is_first_time_count = True
         self.screen = pygame.display.set_mode(SCREEN_RECT.size)
+        # 设置游戏名称和图标
         self.game_name = pygame.display.set_caption(GAME_NAME)
+        pygame.display.set_icon(pygame.image.load(GAME_ICON))
         self.game_clock = pygame.time.Clock()
         # 默认游戏关卡为1
         self.game_level = game_level
@@ -158,14 +54,12 @@ class BoxGame(object):
         # 初始化游戏地图
         self.__init_game_map()
         self.__create_sprite()
+        # 设置音乐结束事件
+        pygame.mixer.music.set_endevent(MUSICS_END_EVENT)
 
     def start_game(self):
         """游戏开始"""
         while True:
-            # 检查音乐流播放，有返回True，没有返回False
-            # 如果没有音乐流则选择播放
-            if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.play()
             self.game_clock.tick(FRAME_PRE_SEC)
             self.__event_handle()
             self.current_time = time.process_time()
@@ -181,6 +75,11 @@ class BoxGame(object):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif pygame.mixer.music.get_endevent() == MUSICS_END_EVENT and not pygame.mixer.music.get_busy():
+                print("下一首")
+                music_file = random.choice(GAME_MUSICS)
+                pygame.mixer.music.load(music_file)
+                pygame.mixer.music.play(loops=0)
             elif event.type == pygame.KEYDOWN:
                 # print(pygame.key.name(event.key))
                 self.__move_event(event)
@@ -220,9 +119,11 @@ class BoxGame(object):
             return False
 
     def __create_sprite(self):
-
         # 创建游戏背景
         game_bg_sprite = GameSprite(GAME_BACKGROUND, self.game_map)
+        # 这样可以适应用户更改游戏背景图片但是可能会变形
+        game_bg_sprite.image = pygame.transform.scale(game_bg_sprite.image,
+                                                      (SCREEN_RECT.width, SCREEN_RECT.height))
         self.game_bg_group = pygame.sprite.Group(game_bg_sprite)
 
         # 创建游戏角色
@@ -406,10 +307,13 @@ class BoxGame(object):
             for y in range(len(self.game_map[x])):
                 if self.game_map[x][y] == BOX_FLAG:
                     box_count += 1
-                elif self.game_map[x][y] == TERMINAL_FLAG:
+                if self.game_map[x][y] == TERMINAL_FLAG:
                     terminal_count += 1
-                elif self.game_map[x][y] == WALL_FLAG:
+                if self.game_map[x][y] == WALL_FLAG:
                     wall_count += 1
+        # print("box_count:" + str(box_count))
+        # print("wall_count" + str(wall_count))
+        # print("terminal_count" + str(terminal_count))
         self.box_counts = box_count
         self.wall_counts = wall_count
         self.terminal_counts = terminal_count

@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b4186bf-2dd7-4084-b6bc-de6ea5777ff1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/龙珠.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/box_game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/box_game_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_sprites.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_sprites.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/box.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/box.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/human.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/human.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/star.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/star.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/t_man.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/terminal.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/terminal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/wall.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/wall.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/white_bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/white_bg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/卡农.mp3" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,24 +19,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/box_game_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="167" column="41" lean-forward="true" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+            <state relative-caret-position="189">
+              <caret line="19" column="51" lean-forward="true" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
               <folding>
                 <element signature="e#67#76#0" expanded="true" />
-                <element signature="e#400#3444#0" />
-                <element signature="e#3556#4181#0" />
-                <element signature="e#4600#5813#0" />
-                <element signature="e#6091#6319#0" />
-                <element signature="e#6361#8370#0" />
-                <element signature="e#8411#9276#0" />
-                <element signature="e#6472#8801#0" />
-                <element signature="e#8861#9954#0" />
-                <element signature="e#9993#10386#0" />
-                <element signature="e#10431#11375#0" />
-                <element signature="e#11416#12021#0" />
-                <element signature="e#12066#12647#0" />
-                <element signature="e#15587#16111#0" />
-                <element signature="e#16029#16157#0" />
               </folding>
             </state>
           </provider>
@@ -51,15 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_sprites.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="10" column="10" selection-start-line="10" selection-end-line="10" selection-end-column="10" />
-              <folding>
-                <element signature="e#949#1142#0" />
-                <element signature="e#1003#1061#0" />
-                <element signature="e#1315#1866#0" />
-                <element signature="e#1903#2857#0" />
-                <element signature="e#2709#2805#0" />
-              </folding>
+            <state relative-caret-position="167">
+              <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -219,22 +192,23 @@
       <workItem from="1570109310908" duration="13636000" />
       <workItem from="1570167776782" duration="6982000" />
       <workItem from="1570189679868" duration="10426000" />
+      <workItem from="1570348878194" duration="7131000" />
+      <workItem from="1570432536968" duration="4469000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50128000" />
+    <option name="totallyTimeSpent" value="61728000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2600536" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.097184986" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35977337" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.1855524" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -256,8 +230,8 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/BoxGame$game_sprites.coverage" NAME="game_sprites Coverage Results" MODIFIED="1570194919241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/BoxGame$box_game_main.coverage" NAME="box_game_main Coverage Results" MODIFIED="1570199259586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BoxGame$game_sprites.coverage" NAME="game_sprites Coverage Results" MODIFIED="1570349491104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BoxGame$box_game_main.coverage" NAME="box_game_main Coverage Results" MODIFIED="1570436412323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/image/terminal.png">
@@ -275,43 +249,23 @@
     <entry file="file://$PROJECT_DIR$/image/box.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/image/reset.png">
+    <entry file="file://$PROJECT_DIR$/image/reset.png" />
+    <entry file="file://$PROJECT_DIR$/image/white_bg.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/game_sprites.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="10" column="10" selection-start-line="10" selection-end-line="10" selection-end-column="10" />
-          <folding>
-            <element signature="e#949#1142#0" />
-            <element signature="e#1003#1061#0" />
-            <element signature="e#1315#1866#0" />
-            <element signature="e#1903#2857#0" />
-            <element signature="e#2709#2805#0" />
-          </folding>
+        <state relative-caret-position="167">
+          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/box_game_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="167" column="41" lean-forward="true" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+        <state relative-caret-position="189">
+          <caret line="19" column="51" lean-forward="true" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
           <folding>
             <element signature="e#67#76#0" expanded="true" />
-            <element signature="e#400#3444#0" />
-            <element signature="e#3556#4181#0" />
-            <element signature="e#4600#5813#0" />
-            <element signature="e#6091#6319#0" />
-            <element signature="e#6361#8370#0" />
-            <element signature="e#8411#9276#0" />
-            <element signature="e#6472#8801#0" />
-            <element signature="e#8861#9954#0" />
-            <element signature="e#9993#10386#0" />
-            <element signature="e#10431#11375#0" />
-            <element signature="e#11416#12021#0" />
-            <element signature="e#12066#12647#0" />
-            <element signature="e#15587#16111#0" />
-            <element signature="e#16029#16157#0" />
           </folding>
         </state>
       </provider>
