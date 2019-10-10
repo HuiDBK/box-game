@@ -14,11 +14,20 @@ from game_sprites import *
 
 pygame.init()
 
-# 加载音乐
-pygame.mixer.init()
 
-pygame.mixer.music.load(random.choice(GAME_MUSICS))
-pygame.mixer.music.play(loops=0)
+def random_music():
+    """随机播放音乐"""
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load(random.choice(GAME_MUSICS))
+        pygame.mixer.music.play(loops=0)
+    except Exception as e:
+        print("无法加载音频设置，请检查电脑配置\t" + str(e))
+        # 打印异常行数
+        print("Line_Num:" + str(e.__traceback__.tb_lineno))
+
+
+random_music()
 
 # 获取电脑屏幕分辨率
 screen_width, screen_height = gui.size()
@@ -55,7 +64,11 @@ class BoxGame(object):
         self.__init_game_map()
         self.__create_sprite()
         # 设置音乐结束事件
-        pygame.mixer.music.set_endevent(MUSICS_END_EVENT)
+        try:
+            pygame.mixer.music.set_endevent(MUSICS_END_EVENT)
+        except Exception as e:
+            print("无法设置音乐结束事件\t" + str(e))
+            print("Line_Num:" + str(e.__traceback__.tb_lineno))
 
     def start_game(self):
         """游戏开始"""
@@ -72,14 +85,18 @@ class BoxGame(object):
     def __event_handle(self):
         """游戏事件监听"""
         for event in pygame.event.get():
+            try:
+                if pygame.mixer.music.get_endevent() == MUSICS_END_EVENT and not pygame.mixer.music.get_busy():
+                    print("下一首")
+                    music_file = random.choice(GAME_MUSICS)
+                    pygame.mixer.music.load(music_file)
+                    pygame.mixer.music.play(loops=0)
+            except Exception as e:
+                print("无法加载音频，请检查电脑配置\t" + str(e))
+                print("Line_Num:" + str(e.__traceback__.tb_lineno))
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif pygame.mixer.music.get_endevent() == MUSICS_END_EVENT and not pygame.mixer.music.get_busy():
-                print("下一首")
-                music_file = random.choice(GAME_MUSICS)
-                pygame.mixer.music.load(music_file)
-                pygame.mixer.music.play(loops=0)
             elif event.type == pygame.KEYDOWN:
                 # print(pygame.key.name(event.key))
                 self.__move_event(event)
@@ -359,5 +376,8 @@ class BoxGame(object):
 
 
 if __name__ == '__main__':
-    BoxGame().start_game()
-    pass
+    try:
+        BoxGame().start_game()
+    except Exception as e:
+        print("未知异常\t" + str(e))
+        print("Line_Num:" + str(e.__traceback__.tb_lineno))
